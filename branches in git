@@ -1,0 +1,38 @@
+ ##lets check we are in which branch 
+ git branch 
+ #our pointer is in master branch
+ #lets create a new file
+ echo "this is a new file witht he name dev" > dev 
+ ls
+ git add .
+ git commit -m "added a new file called as dev"
+ #lets create a new branch 
+ 532  git branch dev1
+ ##to switch to the 
+  533  git checkout dev1
+  #this will show that we are in dev1 branch 
+  535  git branch
+  #add a new line in the dev branch 
+  536  echo "new line added in de file" >> dev
+  #dev files contains two line 
+  537  cat dev
+  538  git add .
+  539  git commit -m "dev added second line"
+  ##now lets go to the master branch and check 
+  540  git branch
+  541  git checkout master
+  ##in the master branch the same file called as dev  will have single line 
+  542  cat dev
+  #merge the dev changes to master branch 
+   554  git branch
+   #you need to be in that particular branch where you want to merge your code 
+  555  git checkout master
+  556  git merge dev1
+  #this will show two line 
+  557  cat dev
+  558  git branch
+
+#push the changes to remote repo 
+$ git push origin --all
+
+#git reflog

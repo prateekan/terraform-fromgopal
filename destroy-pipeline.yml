@@ -1,0 +1,76 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool: default
+ # vmImage: ubuntu-latest
+#this is an pre defined varaible given my azure devops
+stages:
+  - stage: tfvalidate #plan #apply destroy
+    jobs:
+      - job: validate #in the validate job we will define terraform install intalizat we will do tfvalidate 
+        steps:
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTaskV4@4
+          displayName: Intialzing terraform 
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: 'ado1'
+            backendAzureRmResourceGroupName: 'terraform-state-gopal'
+            backendAzureRmStorageAccountName: 'terraformstoragegd'
+            backendAzureRmContainerName: 'tfstate'
+            backendAzureRmKey: 'ado.tfstate'
+        - task: TerraformTaskV4@4
+          displayName: valdiating your code
+          inputs:
+            provider: 'azurerm'
+            command: 'validate'
+ 
+  - stage: tfapproval
+    jobs:
+        - job: approval
+          pool: server  
+          timeoutInMinutes: 1
+
+          steps:
+            - task: ManualValidation@0
+              displayName: please approve the task then only apply will work
+              inputs:
+                notifyUsers: 'gopal1409@gmail.com'
+                instructions: 'please approve it'
+                onTimeout: 'reject'
+
+  
+  - stage: tfdestroy
+    jobs:
+
+      - job: destroying your resource
+        steps:
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTaskV4@4
+          displayName: Intialzing terraform 
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: 'ado1'
+            backendAzureRmResourceGroupName: 'terraform-state-gopal'
+            backendAzureRmStorageAccountName: 'terraformstoragegd'
+            backendAzureRmContainerName: 'tfstate'
+            backendAzureRmKey: 'ado.tfstate'
+        - task: TerraformTaskV4@4
+          displayName: Reached Mars
+          inputs:
+            provider: 'azurerm'
+            command: 'destroy'
+            environmentServiceNameAzureRM: 'ado1'
+ 
+

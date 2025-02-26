@@ -1,0 +1,19 @@
+#####authentication
+#3lets create a service principal using cloud shell
+##change the subscript id to your id 
+az ad sp create-for-rbac -n "TurbonomicSP" --role contributor --scope /subscriptions/def2cf32-c635-4684-ad00-5703dbddbe44    
+
+###once you create the service principal copy the output in a note pad 
+######
+$env:ARM_CLIENT_ID = ""
+$env:ARM_CLIENT_SECRET = ""
+$env:ARM_TENANT_ID = ""
+$env:ARM_SUBSCRIPTION_ID = ""
+
+
+###
+
+clientid==appid 
+clientsecret=password
+tenantid 
+subscriptionid

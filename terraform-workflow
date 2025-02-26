@@ -1,0 +1,22 @@
+##lets clone my code
+git clone https://gitlab.com/gopal1409/ken-feb-manifest-25.git
+###once clone 
+
+open visual studio code and click on the open path 
+##open the file 
+open the terminal
+###we need to put all the authentication parameter in this format 
+$env:ARM_CLIENT_ID = ""
+$env:ARM_CLIENT_SECRET = ""
+$env:ARM_TENANT_ID = ""
+$env:ARM_SUBSCRIPTION_ID = ""
+#copy all this 4 value and paste it in the terminal
+###once done 
+terraform init 
+terraform fmt 
+terraform plan
+terraform apply 
+####then go to the azure portal you will see the resource group is created 
+##finally once you see the rg
+terraform destroy 
+

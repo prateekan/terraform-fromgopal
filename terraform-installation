@@ -1,0 +1,14 @@
+#####chco packagemanager 
+##we need to install the same 
+#or go to this documetation 
+https://chocolatey.org/install
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+###once you install choco package manager
+choco install terraform
+choco install git 
+choco install azure-cli
+##now is you try az command 
+az 
+###3it will not work you need to restart the vm 
